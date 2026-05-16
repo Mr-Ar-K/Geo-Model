@@ -10,7 +10,7 @@ from scipy.spatial import cKDTree
 from shapely.geometry import Point, LineString
 
 
-REQUIRED_COLLAR_COLS = {"bhid", "x", "y", "z", "total_depth"}
+REQUIRED_COLLAR_COLS = {"bhid", "x", "y", "z", "total_depth", "dip", "azimuth"}
 REQUIRED_INTERCEPT_COLS = {"bhid", "from", "to", "seam_thickness", "seam_name"}
 
 
@@ -85,8 +85,13 @@ def desurvey_and_merge(collars: pd.DataFrame, intercepts: pd.DataFrame) -> pd.Da
 
     Also preserves original `from`/`to` (downhole depths).
     """
-    # merge collars into intercepts
-    data = pd.merge(intercepts.copy(), collars[["bhid", "x", "y", "z"]], on="bhid", how="left")
+    # merge collars into intercepts (include dip/azimuth if present)
+    collar_cols = ["bhid", "x", "y", "z"]
+    if "dip" in collars.columns:
+        collar_cols.append("dip")
+    if "azimuth" in collars.columns:
+        collar_cols.append("azimuth")
+    data = pd.merge(intercepts.copy(), collars[collar_cols], on="bhid", how="left")
     if data[["x", "y", "z"]].isnull().any().any():
         raise ValueError("Some intercepts do not have matching collar positions (bhid mismatch)")
 
