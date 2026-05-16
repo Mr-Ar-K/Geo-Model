@@ -1,5 +1,0 @@
-# Fault interpretation defaults for structural modelling.
-fault_rules:
-  default_dip_degrees: 65
-  fault_buffer_m: 100
-  taper_to_zero_at_tips: true

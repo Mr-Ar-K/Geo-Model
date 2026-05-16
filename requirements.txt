@@ -1,2 +1,0 @@
-# Standard-library implementation currently, so no hard dependencies are required.
-# Add pandas/numpy/scipy here if the pipeline is later migrated to a scientific stack.

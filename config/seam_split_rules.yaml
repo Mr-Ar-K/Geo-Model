@@ -1,7 +1,0 @@
-# Parent seam splitting rules used for stratigraphic correction.
-split_rules:
-  Seam_IX:
-    top_name: Seam_IX_Top
-    bottom_name: Seam_IX_Bot
-    top_pct: 0.45
-    bot_pct: 0.55
